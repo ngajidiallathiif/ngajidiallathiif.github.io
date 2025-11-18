@@ -1,1 +1,170 @@
-<!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Form Pembayaran Infaq</title> <!-- FONT LEXEND --> <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- BOOTSTRAP --> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> <style> * { font-family: 'Lexend', sans-serif; } body { background: #f1f1f1; } /* Wrapper seragam semua ukuran elemen */ .form-wrapper { max-width: 450px; width: 100%; margin: 30px auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.1); } .form-wrapper .form-control, .form-wrapper .btn { width: 100%; box-sizing: border-box; } .form-wrapper label { margin-top: 12px; font-weight: 600; } #searchResult { position: absolute; background: white; width: 100%; z-index: 10; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-height: 180px; overflow-y: auto; } #searchResult div { padding: 8px 12px; cursor: pointer; } #searchResult div:hover { background: #e9ecef; } </style> </head> <body> <div class="form-wrapper"> <h4 class="text-center fw-bold mb-4"> Form Konfirmasi Infaq<br>NDA Reguler Batch 11 </h4> <!-- Nama Member --> <label for="namaMember">Nama Member</label> <div style="position: relative;"> <input id="namaMember" type="text" class="form-control" autocomplete="off"> <div id="searchResult"></div> </div> <label>Nomor WhatsApp</label> <input id="nomorWA" class="form-control" type="text"> <label>Jenis Kelamin</label> <input id="jenisKelamin" class="form-control" type="text"> <label>Nomor Kelas</label> <input id="nomorKelas" class="form-control" type="text"> <label>Nama Mentor</label> <input id="namaMentor" class="form-control" type="text"> <button id="resetBtn" class="btn btn-secondary mt-3">Reset Pilihan</button> <button id="submitBtn" class="btn btn-primary mt-2">Lanjut Isi di Google Form</button> </div> <script> // ==================== LOAD DATA GOOGLE SHEETS ==================== const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsoLmoRr2EWDG7b-vUI0DwEqtWb2RIlJgFY_oG0auz0KUd2P47g95dM3eyKn5Y1XMTfpiNlT3072j/pub?gid=0&single=true&output=tsv"; let dataSantri = []; // Ambil data dari Google Sheets fetch(sheetURL) .then(res => res.text()) .then(txt => { const rows = txt.split("\n").map(r => r.split("\t")); rows.shift(); // hapus header dataSantri = rows.map(r => ({ nama: r[0]?.trim(), wa: r[1]?.trim(), jk: r[2]?.trim(), kelas: r[3]?.trim(), mentor: r[4]?.trim() })); }); // ==================== FITUR SEARCH ==================== const inputNama = document.getElementById("namaMember"); const searchResult = document.getElementById("searchResult"); inputNama.addEventListener("input", function() { const keyword = this.value.toLowerCase(); searchResult.innerHTML = ""; if (keyword.length < 1) return; const filtered = dataSantri.filter(s => s.nama.toLowerCase().includes(keyword) ); filtered.forEach(s => { const div = document.createElement("div"); div.textContent = s.nama; div.onclick = () => { inputNama.value = s.nama; fillForm(s); searchResult.innerHTML = ""; }; searchResult.appendChild(div); }); }); // ==================== ISI FORM ==================== function fillForm(s) { document.getElementById("nomorWA").value = s.wa; document.getElementById("jenisKelamin").value = s.jk; document.getElementById("nomorKelas").value = s.kelas; document.getElementById("namaMentor").value = s.mentor; } // ==================== RESET ==================== document.getElementById("resetBtn").addEventListener("click", function() { document.getElementById("namaMember").value = ""; document.getElementById("nomorWA").value = ""; document.getElementById("jenisKelamin").value = ""; document.getElementById("nomorKelas").value = ""; document.getElementById("namaMentor").value = ""; searchResult.innerHTML = ""; }); // ==================== SUBMIT ==================== // Bisa arahkan ke Google Form sesuai kebutuhan document.getElementById("submitBtn").addEventListener("click", function() { alert("Fitur redirect Google Form bisa ditambahkan di sini."); }); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Pembayaran Infaq</title>
+
+<!-- FONT LEXEND -->
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- BOOTSTRAP -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+* { font-family: 'Lexend', sans-serif; }
+body { background: #f1f1f1; }
+
+/* Wrapper */
+.form-wrapper {
+    max-width: 450px;
+    width: 100%;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.form-wrapper .form-control,
+.form-wrapper .btn {
+    width: 100%;
+}
+
+#searchResult {
+    position: absolute;
+    background: white;
+    width: 100%;
+    z-index: 10;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+#searchResult div {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#searchResult div:hover {
+    background: #e9ecef;
+}
+</style>
+</head>
+<body>
+
+<div class="form-wrapper">
+    <h4 class="text-center fw-bold mb-4">
+        Form Konfirmasi Infaq<br>NDA Reguler Batch 11
+    </h4>
+
+    <!-- Nama Member -->
+    <label for="namaMember">Nama Member</label>
+    <div style="position: relative;">
+        <input id="namaMember" type="text" class="form-control" autocomplete="off">
+        <div id="searchResult"></div>
+    </div>
+
+    <label>Nomor WhatsApp</label>
+    <input id="nomorWA" class="form-control" type="text">
+
+    <label>Jenis Kelamin</label>
+    <input id="jenisKelamin" class="form-control" type="text">
+
+    <label>Nomor Kelas</label>
+    <input id="nomorKelas" class="form-control" type="text">
+
+    <label>Nama Mentor</label>
+    <input id="namaMentor" class="form-control" type="text">
+
+    <button id="resetBtn" class="btn btn-secondary mt-3">Reset Pilihan</button>
+    <button id="submitBtn" class="btn btn-primary mt-2">Lanjut Isi di Google Form</button>
+</div>
+
+<script>
+// ==================== LOAD DATA GOOGLE SHEETS ====================
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsoLmoRr2EWDG7b-vUI0DwEqtWb2RIlJgFY_oG0auz0KUd2P47g95dM3eyKn5Y1XMTfpiNlT3072j/pub?gid=0&single=true&output=tsv";
+
+let dataSantri = [];
+
+// Ambil data
+fetch(sheetURL)
+.then(res => res.text())
+.then(txt => {
+    const rows = txt.split("\n").map(r => r.split("\t"));
+    rows.shift();
+    dataSantri = rows.map(r => ({
+        nama: r[0]?.trim(),
+        wa: r[1]?.trim(),
+        jk: r[2]?.trim(),
+        kelas: r[3]?.trim(),
+        mentor: r[4]?.trim()
+    }));
+});
+
+// ==================== SEARCH ====================
+const inputNama = document.getElementById("namaMember");
+const searchResult = document.getElementById("searchResult");
+
+inputNama.addEventListener("input", function() {
+    const keyword = this.value.toLowerCase();
+    searchResult.innerHTML = "";
+    if (keyword.length < 1) return;
+
+    const filtered = dataSantri.filter(s => s.nama.toLowerCase().includes(keyword));
+
+    filtered.forEach(s => {
+        const div = document.createElement("div");
+        div.textContent = s.nama;
+        div.onclick = () => {
+            inputNama.value = s.nama;
+            fillForm(s);
+            searchResult.innerHTML = "";
+        };
+        searchResult.appendChild(div);
+    });
+});
+
+// ==================== ISI FORM ====================
+function fillForm(s) {
+    document.getElementById("nomorWA").value = s.wa;
+    document.getElementById("jenisKelamin").value = s.jk;
+    document.getElementById("nomorKelas").value = s.kelas;
+    document.getElementById("namaMentor").value = s.mentor;
+}
+
+// ==================== RESET ====================
+document.getElementById("resetBtn").addEventListener("click", function() {
+    document.getElementById("namaMember").value = "";
+    document.getElementById("nomorWA").value = "";
+    document.getElementById("jenisKelamin").value = "";
+    document.getElementById("nomorKelas").value = "";
+    document.getElementById("namaMentor").value = "";
+    searchResult.innerHTML = "";
+});
+
+// ==================== SUBMIT KE GOOGLE FORM ====================
+document.getElementById("submitBtn").addEventListener("click", function() {
+
+    const nama   = encodeURIComponent(document.getElementById("namaMember").value);
+    const wa     = encodeURIComponent(document.getElementById("nomorWA").value);
+    const jk     = encodeURIComponent(document.getElementById("jenisKelamin").value);
+    const kelas  = encodeURIComponent(document.getElementById("nomorKelas").value);
+    const mentor = encodeURIComponent(document.getElementById("namaMentor").value);
+
+    const url = 
+        "https://docs.google.com/forms/d/e/1FAIpQLSfkgbijeu9hm5kzqjiQz6O70VgGH_i3PrbY2qWBZLHxhiDpng/viewform?" +
+        "usp=pp_url" +
+        "&entry.782238250=" + nama +
+        "&entry.1003227427=" + wa +
+        "&entry.1363053932=" + jk +
+        "&entry.1556174616=" + kelas +
+        "&entry.1421539763=" + mentor;
+
+    window.location.href = url;
+});
+</script>
+
+</body>
+</html>
