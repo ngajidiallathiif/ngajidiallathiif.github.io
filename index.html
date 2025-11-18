@@ -26,6 +26,13 @@ body { background: #f1f1f1; }
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
+label {
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
 .form-wrapper .form-control,
 .form-wrapper .btn {
     width: 100%;
@@ -129,42 +136,4 @@ inputNama.addEventListener("input", function() {
 // ==================== ISI FORM ====================
 function fillForm(s) {
     document.getElementById("nomorWA").value = s.wa;
-    document.getElementById("jenisKelamin").value = s.jk;
-    document.getElementById("nomorKelas").value = s.kelas;
-    document.getElementById("namaMentor").value = s.mentor;
-}
-
-// ==================== RESET ====================
-document.getElementById("resetBtn").addEventListener("click", function() {
-    document.getElementById("namaMember").value = "";
-    document.getElementById("nomorWA").value = "";
-    document.getElementById("jenisKelamin").value = "";
-    document.getElementById("nomorKelas").value = "";
-    document.getElementById("namaMentor").value = "";
-    searchResult.innerHTML = "";
-});
-
-// ==================== SUBMIT KE GOOGLE FORM ====================
-document.getElementById("submitBtn").addEventListener("click", function() {
-
-    const nama   = encodeURIComponent(document.getElementById("namaMember").value);
-    const wa     = encodeURIComponent(document.getElementById("nomorWA").value);
-    const jk     = encodeURIComponent(document.getElementById("jenisKelamin").value);
-    const kelas  = encodeURIComponent(document.getElementById("nomorKelas").value);
-    const mentor = encodeURIComponent(document.getElementById("namaMentor").value);
-
-    const url = 
-        "https://docs.google.com/forms/d/e/1FAIpQLSfkgbijeu9hm5kzqjiQz6O70VgGH_i3PrbY2qWBZLHxhiDpng/viewform?" +
-        "usp=pp_url" +
-        "&entry.782238250=" + nama +
-        "&entry.1003227427=" + wa +
-        "&entry.1363053932=" + jk +
-        "&entry.1556174616=" + kelas +
-        "&entry.1421539763=" + mentor;
-
-    window.location.href = url;
-});
-</script>
-
-</body>
-</html>
+    document.getElementBy
