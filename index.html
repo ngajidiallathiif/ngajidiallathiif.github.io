@@ -20,7 +20,6 @@
             background: #f1f1f1;
         }
 
-        /* Wrapper seragam semua ukuran elemen */
         .form-wrapper {
             max-width: 450px;
             width: 100%;
@@ -101,12 +100,11 @@ const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsoLmoRr2EWD
 
 let dataSantri = [];
 
-// Ambil data dari Google Sheets
 fetch(sheetURL)
     .then(res => res.text())
     .then(txt => {
         const rows = txt.split("\n").map(r => r.split("\t"));
-        rows.shift(); // hapus header
+        rows.shift();
 
         dataSantri = rows.map(r => ({
             nama: r[0]?.trim(),
@@ -117,7 +115,7 @@ fetch(sheetURL)
         }));
     });
 
-// ==================== FITUR SEARCH ====================
+// ==================== SEARCH ====================
 const inputNama = document.getElementById("namaMember");
 const searchResult = document.getElementById("searchResult");
 
@@ -145,7 +143,7 @@ inputNama.addEventListener("input", function() {
     });
 });
 
-// ==================== ISI FORM ====================
+// ==================== FILL FORM ====================
 function fillForm(s) {
     document.getElementById("nomorWA").value = s.wa;
     document.getElementById("jenisKelamin").value = s.jk;
@@ -153,7 +151,7 @@ function fillForm(s) {
     document.getElementById("namaMentor").value = s.mentor;
 }
 
-// ==================== RESET ====================
+// ==================== RESET FORM ====================
 document.getElementById("resetBtn").addEventListener("click", function() {
     document.getElementById("namaMember").value = "";
     document.getElementById("nomorWA").value = "";
@@ -163,16 +161,30 @@ document.getElementById("resetBtn").addEventListener("click", function() {
     searchResult.innerHTML = "";
 });
 
-// ==================== SUBMIT ====================
-// Bisa arahkan ke Google Form sesuai kebutuhan
+// ==================== REDIRECT KE GOOGLE FORM ====================
 document.getElementById("submitBtn").addEventListener("click", function() {
-    alert("Fitur redirect Google Form bisa ditambahkan di sini.");
+
+    // === Masukkan URL Google Form kamu di sini ===
+    const base = "https://docs.google.com/forms/d/e/1FAIpQLSfkgbijeu9hm5kzqjiQz6O70VgGH_i3PrbY2qWBZLHxhiDpng/viewform?usp=pp_url";
+
+    const nama = encodeURIComponent(document.getElementById("namaMember").value);
+    const wa = encodeURIComponent(document.getElementById("nomorWA").value);
+    const jk = encodeURIComponent(document.getElementById("jenisKelamin").value);
+    const kelas = encodeURIComponent(document.getElementById("nomorKelas").value);
+    const mentor = encodeURIComponent(document.getElementById("namaMentor").value);
+
+    // === Ganti entry.X sesuai mapping Google Form kamu ===
+    const finalURL =
+        base +
+        "&entry.782238250=" + nama +
+        "&entry.1003227427=" + wa +
+        "&entry.1363053932=" + jk +
+        "&entry.1556174616=" + kelas +
+        "&entry.1421539763=" + mentor;
+
+    window.location.href = finalURL;
 });
 </script>
 
 </body>
 </html>
-
-
-
-
