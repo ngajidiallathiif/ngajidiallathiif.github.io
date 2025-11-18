@@ -1,179 +1,238 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Form Konfirmasi Infaq</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pembayaran Infaq</title>
 
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FONT LEXEND -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Font Lexend -->
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
-    body {
-        font-family: 'Lexend', sans-serif;
-        background:#f7f7f7;
-        padding:20px;
-    }
+    <style>
+        * {
+            font-family: 'Lexend', sans-serif;
+        }
 
-    /* Card */
-    .form-card {
-        max-width: 420px;
-        margin: auto;
-        background: white;
-        padding: 25px;
-        border-radius: 18px;
-        box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    }
+        body {
+            background: #f1f1f1;
+        }
 
-    /* Seragamkan ukuran input dan button */
-    .form-control, .form-select, .btn {
-        height: 48px !important;
-        font-size: 16px;
-    }
+        /* Wrapper seragam semua ukuran elemen */
+        .form-wrapper {
+            max-width: 450px;
+            width: 100%;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
 
-    /* Supaya semua width sama */
-    .form-control, .form-select {
-        width: 100%;
-    }
+        .form-wrapper .form-control,
+        .form-wrapper .btn,
+        .form-wrapper select {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-    .btn-submit {
-        width: 100%;
-        font-weight: 600;
-    }
-</style>
+        .form-wrapper label {
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        #searchResult {
+            position: absolute;
+            background: white;
+            width: 100%;
+            z-index: 10;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-height: 180px;
+            overflow-y: auto;
+        }
+
+        #searchResult div {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        #searchResult div:hover {
+            background: #e9ecef;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="form-card">
-    <h4 class="text-center mb-3">Konfirmasi Infaq</h4>
+<div class="form-wrapper">
 
-    <!-- Form -->
-    <form id="infaqForm">
+    <h4 class="text-center fw-bold mb-4">
+        Form Konfirmasi Infaq<br>NDA Reguler Batch 11
+    </h4>
 
-        <!-- Nama -->
-        <div class="mb-3">
-            <label class="form-label">Nama Santri</label>
-            <input list="namaSantri" id="name" class="form-control" placeholder="Ketik nama...">
-            <datalist id="namaSantri">
-                <option value="Yogi Pratama">
-                <option value="Fulan 1">
-                <option value="Fulan 2">
-                <option value="Fulan 3">
-            </datalist>
-        </div>
+    <!-- Nama Member -->
+    <label for="namaMember">Nama Member</label>
+    <div style="position: relative;">
+        <input id="namaMember" type="text" class="form-control" autocomplete="off">
+        <div id="searchResult"></div>
+    </div>
 
-        <!-- WA -->
-        <div class="mb-3">
-            <label class="form-label">Nomor WA</label>
-            <input type="text" id="wa" class="form-control" placeholder="08xxxxxxxxxx">
-        </div>
+    <label>Nomor WhatsApp</label>
+    <input id="nomorWA" class="form-control" type="text">
 
-        <!-- Gender -->
-        <div class="mb-3">
-            <label class="form-label">Jenis Kelamin</label>
-            <select id="gender" class="form-select">
-                <option value="" selected disabled>Pilih</option>
-                <option value="Ikhwan (Laki-Laki)">Ikhwan (Laki-Laki)</option>
-                <option value="Akhwat (Perempuan)">Akhwat (Perempuan)</option>
-            </select>
-        </div>
+    <label>Jenis Kelamin</label>
+    <input id="jenisKelamin" class="form-control" type="text">
 
-        <!-- Kelas -->
-        <div class="mb-3">
-            <label class="form-label">Kelas</label>
-            <select id="kelas" class="form-select">
-                <option value="" disabled selected>Pilih Kelas</option>
-                <option value="L1">L1</option>
-                <option value="L2">L2</option>
-                <option value="L3">L3</option>
-            </select>
-        </div>
+    <label>Nomor Kelas</label>
+    <input id="nomorKelas" class="form-control" type="text">
 
-        <!-- Mentor -->
-        <div class="mb-3">
-            <label class="form-label">Mentor</label>
-            <select id="mentor" class="form-select">
-                <option value="" disabled selected>Pilih Mentor</option>
-                <option value="Ustadz Yogi Pratama">Ustadz Yogi Pratama</option>
-                <option value="Ustadzah Aisyah">Ustadzah Aisyah</option>
-            </select>
-        </div>
+    <label>Nama Mentor</label>
+    <select id="namaMentor" class="form-control">
+        <option value="">-- Pilih Mentor --</option>
+        <option>Ustadz Yogi Pratama</option>
+        <option>Ustadz Fulan</option>
+        <option>Ustadzah Aisyah</option>
+        <!-- Opsi bisa kamu tambah manual di sini -->
+    </select>
 
-        <!-- Bulan -->
-        <div class="mb-3">
-            <label class="form-label">Periode Infaq</label>
-            <select id="bulan" class="form-select">
-                <option value="Bulan Ke-1 (Periode Pendaftaran, 20 Juni 2025 - 31 Juli 2025)">
-                    Bulan Ke-1 (20 Juni 2025 - 31 Juli 2025)
-                </option>
-                <option value="Bulan Ke-2">Bulan Ke-2</option>
-            </select>
-        </div>
+    <label>Bulan Ke</label>
+    <select id="bulanKe" class="form-control">
+        <option value="">-- Pilih Bulan --</option>
+        <option>Bulan Ke-1 (Periode Pendaftaran, 20 Juni 2025 - 31 Juli 2025)</option>
+        <option>Bulan Ke-2</option>
+        <option>Bulan Ke-3</option>
+    </select>
 
-        <!-- Nominal -->
-        <div class="mb-3">
-            <label class="form-label">Nominal Infaq</label>
-            <select id="nominal" class="form-select">
-                <option value="" disabled selected>Pilih Nominal</option>
-                <option value="Rp. 100.000 (Infaq KBM Per-Bulan): Kelas Lanjutan 2/Tuhfatul Athfal/Tilawah Jama'i">
-                    Rp. 100.000
-                </option>
-            </select>
-        </div>
+    <label>Nominal Infaq</label>
+    <select id="nominalInfaq" class="form-control">
+        <option value="">-- Pilih Nominal --</option>
+        <option>Rp. 100.000 (Infaq KBM Per-Bulan): Kelas Lanjutan 2/Tuhfatul Athfal/Tilawah Jama'i</option>
+        <option>Rp. 150.000</option>
+        <option>Rp. 200.000</option>
+    </select>
 
-        <!-- Tanggal -->
-        <div class="mb-3">
-            <label class="form-label">Tanggal Transfer</label>
-            <input type="date" id="tanggal" class="form-control">
-        </div>
+    <label>Tanggal Transfer</label>
+    <input id="tanggalTF" class="form-control" type="date">
 
-        <!-- Tombol Submit -->
-        <button type="submit" class="btn btn-primary btn-submit">Kirim</button>
+    <button id="resetBtn" class="btn btn-secondary mt-3">Reset Pilihan</button>
+    <button id="submitBtn" class="btn btn-primary mt-2">Lanjut Isi di Google Form</button>
 
-        <!-- Tombol Reset -->
-        <button type="button" id="resetBtn" class="btn btn-secondary btn-submit mt-2">Reset Pilihan</button>
-    </form>
 </div>
 
-<!-- JAVASCRIPT -->
 <script>
-    // Reset
-    document.getElementById("resetBtn").addEventListener("click", function() {
-        document.getElementById("infaqForm").reset();
-        document.getElementById("name").value = "";
+// ==================== LOAD DATA GOOGLE SHEETS ====================
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vRJsoLmoRr2EWDG7b-vUI0DwEqtWb2RIlJgFY_oG0auz0KUd2P47g95dM3eyKn5Y1XMTfpiNlT3072j/pub?gid=0&single=true&output=tsv";
+
+let dataSantri = [];
+
+// Ambil data dari Google Sheets
+fetch(sheetURL)
+    .then(res => res.text())
+    .then(txt => {
+        const rows = txt.split("\n").map(r => r.split("\t"));
+        rows.shift(); // hapus header
+
+        dataSantri = rows.map(r => ({
+            nama: r[0]?.trim(),
+            wa: r[1]?.trim(),
+            jk: r[2]?.trim(),
+            kelas: r[3]?.trim(),
+            mentor: r[4]?.trim()
+        }));
     });
 
-    // Submit → Redirect Google Form
-    document.getElementById("infaqForm").addEventListener("submit", function(e) {
-        e.preventDefault();
+// ==================== FITUR SEARCH ====================
+const inputNama = document.getElementById("namaMember");
+const searchResult = document.getElementById("searchResult");
 
-        const name = document.getElementById("name").value;
-        const wa = document.getElementById("wa").value;
-        const gender = document.getElementById("gender").value;
-        const kelas = document.getElementById("kelas").value;
-        const mentor = document.getElementById("mentor").value;
-        const bulan = document.getElementById("bulan").value;
-        const nominal = document.getElementById("nominal").value;
-        const tanggal = document.getElementById("tanggal").value;
+inputNama.addEventListener("input", function() {
+    const keyword = this.value.toLowerCase();
+    searchResult.innerHTML = "";
 
-        const base = "https://docs.google.com/forms/d/e/1FAIpQLSfkgbijeu9hm5kzqjiQz6O70VgGH_i3PrbY2qWBZLHxhiDpng/viewform?usp=pp_url";
+    if (keyword.length < 1) return;
 
-        const finalURL =
-            base +
-            "&entry.782238250=" + encodeURIComponent(name) +
-            "&entry.1003227427=" + encodeURIComponent(wa) +
-            "&entry.1363053932=" + encodeURIComponent(gender) +
-            "&entry.1556174616=" + encodeURIComponent(kelas) +
-            "&entry.1421539763=" + encodeURIComponent(mentor) +
-            "&entry.1627472045=" + encodeURIComponent(bulan) +
-            "&entry.722930524=" + encodeURIComponent(nominal) +
-            "&entry.1346683135=" + encodeURIComponent(tanggal);
+    const filtered = dataSantri.filter(s =>
+        s.nama.toLowerCase().includes(keyword)
+    );
 
-        window.location.href = finalURL;
+    filtered.forEach(s => {
+        const div = document.createElement("div");
+        div.textContent = s.nama;
+
+        div.onclick = () => {
+            inputNama.value = s.nama;
+            fillForm(s);
+            searchResult.innerHTML = "";
+        };
+
+        searchResult.appendChild(div);
     });
+});
+
+// ==================== ISI FORM ====================
+function fillForm(s) {
+    document.getElementById("nomorWA").value = s.wa || "";
+    document.getElementById("jenisKelamin").value = s.jk || "";
+    document.getElementById("nomorKelas").value = s.kelas || "";
+
+    // === FIX MENTOR ===
+    const mentorSelect = document.getElementById("namaMentor");
+    const mentorValue = (s.mentor || "").trim();
+    let found = false;
+
+    for (let i = 0; i < mentorSelect.options.length; i++) {
+        if (mentorSelect.options[i].value.trim() === mentorValue) {
+            mentorSelect.selectedIndex = i;
+            found = true;
+            break;
+        }
+    }
+
+    // Jika tidak ada di dropdown → tambahkan otomatis
+    if (!found && mentorValue !== "") {
+        const opt = document.createElement("option");
+        opt.value = mentorValue;
+        opt.textContent = mentorValue;
+        mentorSelect.appendChild(opt);
+        mentorSelect.value = mentorValue;
+    }
+}
+
+// ==================== RESET ====================
+document.getElementById("resetBtn").addEventListener("click", function() {
+    document.getElementById("namaMember").value = "";
+    document.getElementById("nomorWA").value = "";
+    document.getElementById("jenisKelamin").value = "";
+    document.getElementById("nomorKelas").value = "";
+    document.getElementById("namaMentor").value = "";
+    document.getElementById("bulanKe").value = "";
+    document.getElementById("nominalInfaq").value = "";
+    document.getElementById("tanggalTF").value = "";
+    searchResult.innerHTML = "";
+});
+
+// ==================== SUBMIT (GOOGLE FORM PREFILLED) ====================
+document.getElementById("submitBtn").addEventListener("click", function() {
+
+    const base =
+    "https://docs.google.com/forms/d/e/1FAIpQLSfkgbijeu9hm5kzqjiQz6O70VgGH_i3PrbY2qWBZLHxhiDpng/viewform?usp=pp_url";
+
+    const url =
+        base +
+        "&entry.782238250=" + encodeURIComponent(document.getElementById("namaMember").value) +
+        "&entry.1003227427=" + encodeURIComponent(document.getElementById("nomorWA").value) +
+        "&entry.1363053932=" + encodeURIComponent(document.getElementById("jenisKelamin").value) +
+        "&entry.1556174616=" + encodeURIComponent(document.getElementById("nomorKelas").value) +
+        "&entry.1421539763=" + encodeURIComponent(document.getElementById("namaMentor").value) +
+        "&entry.1627472045=" + encodeURIComponent(document.getElementById("bulanKe").value) +
+        "&entry.722930524=" + encodeURIComponent(document.getElementById("nominalInfaq").value) +
+        "&entry.1346683135=" + encodeURIComponent(document.getElementById("tanggalTF").value);
+
+    window.location.href = url;
+});
 </script>
 
 </body>
